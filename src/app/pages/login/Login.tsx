@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {InputLogin} from "./components/InputLogin"
 
 export const Login = () => {
   const inputPasswordRef = useRef<HTMLInputElement>(null);
@@ -31,6 +32,8 @@ export const Login = () => {
 
   // useCallback ele guarda o valor em memória e pede  2 parametro 1 - recebe uma função // 2- array de dependencias colocar parametros de quando atualizar
   // tem a lógica parecida com os outros Hooks acima.
+  
+  // ref={inputPasswordRef}
   const handleEntrar = useCallback(() => {
     console.log(email);
     console.log(password);
@@ -40,25 +43,21 @@ export const Login = () => {
     <div>
       <form>
         <p>Quantidade de catacteres no email: {emailLength}</p>
-        <label>
-          <span>Email</span>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            onKeyDown={e => e.key === 'Enter' ? inputPasswordRef?.current?.focus() : undefined}
-          />
-        </label>
 
-        <label>
-          <span>Senha</span>
-          <input
-            ref={inputPasswordRef}
-            value={password}
-            onChange={(s) => setPassword(s.target.value)}
-            type="password"
-          />
-        </label>
+        <InputLogin
+          label="Email"
+          type="email"
+          value={email}
+          onChange={newValue => setEmail(newValue)}
+          onPressEnter={() => inputPasswordRef.current?.focus()}
+        />
+
+        <InputLogin
+          label="Senha"
+          type="password"
+          value={password}
+          onChange={newValue => setPassword(newValue)}
+        />
 
         <button onClick={handleEntrar} type="button">
           Entrar
