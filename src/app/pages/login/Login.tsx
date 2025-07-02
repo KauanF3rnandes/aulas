@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 
 
 export const Login = () => {
@@ -30,11 +30,12 @@ export const Login = () => {
         console.log(password);
     }, [email, password]);
     
-
-    const handleEntrar = () => {
+    // useCallback ele guarda o valor em memória e pede  2 parametro 1 - recebe uma função // 2- array de dependencias colocar parametros de quando atualizar
+    // tem a lógica parecida com os outros Hooks acima.
+    const handleEntrar = useCallback(() => {
         console.log(email);
         console.log(password);
-    }
+    }, [email, password]);
 
     return(
         <div>
